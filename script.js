@@ -5,6 +5,7 @@ const resetButton = document.getElementById('reset');
 const verifyButton = document.getElementById('verify');
 const resultPara = document.getElementById('para');
 
+// Shuffle images and randomly duplicate one
 function shuffleImages() {
   const images = [
     "https://picsum.photos/id/237/200/300", // img1
@@ -14,70 +15,62 @@ function shuffleImages() {
     "https://picsum.photos/200/300.jpg", // img5
   ];
 
-  // Pick a random image to duplicate
   const duplicateIndex = Math.floor(Math.random() * images.length);
   correctImage = images[duplicateIndex];
 
-  // Create an array with the images + one duplicate
+  // Add the duplicate image to the images array
   const finalImages = [...images, correctImage];
-
-  // Shuffle the images array
+  
+  // Shuffle the final images array
   finalImages.sort(() => Math.random() - 0.5);
 
-  // Assign the shuffled images to the tiles
+  // Assign shuffled images to the tiles
   tiles.forEach((tile, index) => {
     tile.src = finalImages[index];
-    tile.classList.remove('selected'); // Reset any selected class
   });
 }
 
+// Event listener for tile clicks
 tiles.forEach(tile => {
   tile.addEventListener('click', function() {
-    // Ensure that a maximum of two tiles can be selected
     if (selectedImages.length < 2 && !selectedImages.includes(tile.src)) {
       selectedImages.push(tile.src);
-      tile.classList.add('selected'); // Highlight the selected tile
+      tile.classList.add('selected');
     }
 
-    // Show the reset button after the first image is clicked
     if (selectedImages.length === 1) {
       resetButton.style.display = 'block';
     }
 
-    // Show the verify button after the second image is clicked
     if (selectedImages.length === 2) {
       verifyButton.style.display = 'block';
     }
   });
 });
 
+// Verification of the tile selections
 function verifySelection() {
-  // Check if the selected images are identical
   if (selectedImages[0] === selectedImages[1]) {
     resultPara.innerText = "You are a human. Congratulations!";
   } else {
     resultPara.innerText = "We can't verify you as a human. You selected the non-identical tiles.";
   }
-
-  // Hide the verify button after the check
-  verifyButton.style.display = 'none';
+  verifyButton.style.display = 'none'; // Hide the Verify button after checking
 }
 
+// Reset the game and shuffle images
 function resetGame() {
-  // Reset the game state
   selectedImages = [];
-  resultPara.innerText = ''; // Clear the result message
-  resetButton.style.display = 'none'; // Hide the reset button
-  verifyButton.style.display = 'none'; // Hide the verify button
+  resultPara.innerText = '';
+  resetButton.style.display = 'none';
+  verifyButton.style.display = 'none';
   tiles.forEach(tile => {
-    tile.classList.remove('selected'); // Remove the selected style from all tiles
+    tile.classList.remove('selected');
   });
-
-  // Shuffle the images again
   shuffleImages();
 }
 
-// Initialize the game when the page loads
+// Initialize the game
 window.onload = function() {
   shuffleImages();
 };
