@@ -5,7 +5,7 @@ const resetButton = document.getElementById('reset');
 const verifyButton = document.getElementById('verify');
 const resultPara = document.getElementById('para');
 
-// Shuffle images and randomly duplicate one
+// Function to shuffle images and randomly duplicate one
 function shuffleImages() {
   const images = [
     "https://picsum.photos/id/237/200/300", // img1
@@ -15,13 +15,14 @@ function shuffleImages() {
     "https://picsum.photos/200/300.jpg", // img5
   ];
 
+  // Randomly choose one image to duplicate
   const duplicateIndex = Math.floor(Math.random() * images.length);
   correctImage = images[duplicateIndex];
 
-  // Add the duplicate image to the images array
+  // Create an array with 6 images (5 unique + 1 duplicate)
   const finalImages = [...images, correctImage];
-  
-  // Shuffle the final images array
+
+  // Shuffle the array
   finalImages.sort(() => Math.random() - 0.5);
 
   // Assign shuffled images to the tiles
@@ -39,16 +40,16 @@ tiles.forEach(tile => {
     }
 
     if (selectedImages.length === 1) {
-      resetButton.style.display = 'block';
+      resetButton.style.display = 'block'; // Show reset button after first selection
     }
 
     if (selectedImages.length === 2) {
-      verifyButton.style.display = 'block';
+      verifyButton.style.display = 'block'; // Show verify button after second selection
     }
   });
 });
 
-// Verification of the tile selections
+// Function to verify the selected images
 function verifySelection() {
   if (selectedImages[0] === selectedImages[1]) {
     resultPara.innerText = "You are a human. Congratulations!";
@@ -58,19 +59,19 @@ function verifySelection() {
   verifyButton.style.display = 'none'; // Hide the Verify button after checking
 }
 
-// Reset the game and shuffle images
+// Function to reset the game
 function resetGame() {
   selectedImages = [];
   resultPara.innerText = '';
-  resetButton.style.display = 'none';
-  verifyButton.style.display = 'none';
+  resetButton.style.display = 'none'; // Hide reset button
+  verifyButton.style.display = 'none'; // Hide verify button
   tiles.forEach(tile => {
-    tile.classList.remove('selected');
+    tile.classList.remove('selected'); // Remove selected style from all tiles
   });
-  shuffleImages();
+  shuffleImages(); // Shuffle images again
 }
 
-// Initialize the game
+// Initialize the game on page load
 window.onload = function() {
   shuffleImages();
 };
