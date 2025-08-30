@@ -9,9 +9,22 @@
   </head>
   <body>
     <main>
+		<img src=""
       <!-- solution start -->
-      
+		<h3 id="h">"Please click on the identical tiles to verify that you are not a robot."</h3>
+		<div id="image-container">
+        <img src="img1.jpg" alt="Tile 1" class="tile">
+        <img src="img2.jpg" alt="Tile 2" class="tile">
+        <img src="img3.jpg" alt="Tile 3" class="tile">
+        <img src="img4.jpg" alt="Tile 4" class="tile">
+        <img src="img5.jpg" alt="Tile 5" class="tile">
+        <img src="img5.jpg" alt="Tile 5 Duplicate" class="tile"> 
+      </div>
+		<button id="reset" style="display: none;" onclick="resetGame()">Reset</button>
+      <button id="verify" style="display: none;" onclick="verifySelection()">Verify</button>
       <!-- solution end -->
+		 <p id="para"></p>
+    
     </main>
     <script src="./script.js"></script>
   </body>
